@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
         final String action = "https://www.w3schools.com/xml/CelsiusToFahrenheit";
         final String param = "Celsius";
 
+        //F to C
         final String action2 = "https://www.w3schools.com/xml/FahrenheitToCelsius";
         final String param2 = "Fahrenheit";
 
-        //F to C
         btnCtoF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     protected void onPostExecute(Object o) {
                         super.onPostExecute(o);
-                        tvResult.setText(edtTemperature.getText().toString()+ " độ C = "+ kq + " độ F");
+                        tvResult.setText(edtTemperature.getText().toString() + " độ C = " + kq + " độ F");
 
                     }
                 };
@@ -83,15 +83,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
         btnFtoC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AsyncTask asyncTask = new AsyncTask() {
                     @Override
                     protected Object doInBackground(Object[] objects) {
-                        SoapObject soapObject = new SoapObject(namespace,"FahrenheitToCelsius");
+                        SoapObject soapObject = new SoapObject(namespace, "FahrenheitToCelsius");
                         soapObject.addProperty(param2, edtTemperature.getText().toString().trim());
                         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
                         envelope.dotNet = true;
@@ -99,11 +97,11 @@ public class MainActivity extends AppCompatActivity {
 
                         HttpTransportSE httpTransportSE = new HttpTransportSE(url);
                         try {
-                            httpTransportSE.call(action2,envelope);
+                            httpTransportSE.call(action2, envelope);
                             SoapPrimitive soapPrimitive = (SoapPrimitive) envelope.getResponse();
                             kq = soapPrimitive.toString();
                             Toast.makeText(MainActivity.this, kq, Toast.LENGTH_SHORT).show();
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             Log.e("ANC", e.getMessage());
                         }
                         return null;
@@ -112,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     protected void onPostExecute(Object o) {
                         super.onPostExecute(o);
-                        tvResult.setText(edtTemperature.getText().toString()+ " độ F = "+ kq + " độ C");
+                        tvResult.setText(edtTemperature.getText().toString() + " độ F = " + kq + " độ C");
                     }
                 };
 
